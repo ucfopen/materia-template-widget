@@ -1,0 +1,1 @@
+var template = angular.module('template', []);
