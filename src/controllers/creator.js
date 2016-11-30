@@ -1,38 +1,78 @@
-MateriaCreator.controller('creatorCtrl', [
-  '$scope', function($scope) {
-    var _buildSaveData;
-    $scope.widget = {
-      engineName: '',
-      title: ''
-    };
-    $scope.state = {
-      isEditingExistingWidget: false
-    };
-    $scope.initNewWidget = function(widget) {
-      return $scope.$apply(function() {
-        return $scope.widget.engineName = $scope.widget.title = widget.name;
-      });
-    };
-    $scope.initExistingWidget = function(title, widget) {
-      $scope.state.isEditingExistingWidget = true;
-      return $scope.$apply(function() {
-        $scope.widget.engineName = widget.name;
-        return $scope.widget.title = title;
-      });
-    };
-    $scope.onSaveClicked = function() {
-      if ($scope.widget.title) {
-        return Materia.CreatorCore.save($scope.widget.title, _buildSaveData());
-      } else {
-        return Materia.CreatorCore.cancelSave('This widget has no title!');
-      }
-    };
-    _buildSaveData = function() {
-      return {
-        name: '',
-        items: []
-      };
-    };
-    return Materia.CreatorCore.start($scope);
-  }
-]);
+MateriaCreator.controller('creatorCtrl', ['$scope', '$http', function($scope, $http)
+{
+	var _buildSaveData, qset;
+	$scope.widget =
+	{
+		engineName: '',
+		title: ''
+	};
+	$scope.state =
+	{
+		isEditingExistingWidget: false
+	};
+	$scope.initNewWidget = function(widget)
+	{
+		console.log("new");
+		$scope.$apply(function()
+		{
+			return ($scope.widget.engineName = $scope.widget.title = widget.name);
+		});
+		return $http.get('assets/questions.json').then(function(success) {
+			var qset;
+			return qset = success.data.qset.data;
+		}, function(fail)
+		{
+			return alert("Could not load preset questions!");
+		});
+	};
+	$scope.initExistingWidget = function(title, widget, qset, version, baseUrl)
+	{
+		console.log("edit");
+		$scope.state.isEditingExistingWidget = true;
+		$scope.$apply(function()
+		{
+			$scope.widget.engineName = widget.name;
+			return $scope.widget.title = title;
+		});
+		if (!qset.length)
+		{
+			return $http.get('assets/questions.json').then(function(success)
+			{
+				return qset = success.data.qset.data;
+			}, function(fail)
+			{
+				return alert("Could not load preset questions!");
+			});
+		}
+	};
+	$scope.onSaveClicked = function()
+	{
+		console.log("save");
+		if ($scope.widget.title)
+		{
+			return Materia.CreatorCore.save($scope.widget.title, qset);
+		}
+		else
+		{
+			return Materia.CreatorCore.cancelSave('This widget has no title!');
+		}
+	};
+	$scope.onSaveComplete = function(title, widget, qset, version)
+	{
+		console.log("complete");
+		return null;
+	};
+	$scope.onMediaImportComplete = function(media)
+	{
+		console.log("import");
+		return null;
+	};
+	_buildSaveData = function()
+	{
+		return {
+			name: '',
+			items: []
+		};
+	};
+	return Materia.CreatorCore.start($scope);
+}]);
