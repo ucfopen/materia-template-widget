@@ -18,11 +18,15 @@ var sass = require('gulp-sass');
 var uglify = require('gulp-uglify');
 var zip = require('gulp-zip');
 
-console.log(fs.existsSync('../../backend/config.json'));
+//console.log(fs.openSync('../../backend/config.json'));
 var configs = null;
-if (!fs.existsSync('../../backend/config.json'))
+try
 {
 	configs = require('../../backend/config.json');
+}
+catch(e)
+{
+	console.log(e);
 }
 
 var widget = sanitize("template-widget");
