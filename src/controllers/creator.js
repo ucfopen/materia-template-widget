@@ -1,6 +1,6 @@
 MateriaCreator.controller('creatorCtrl', ['$scope', '$http', function($scope, $http)
 {
-	var _buildSaveData, qset;
+	var qset = "";
 	$scope.widget =
 	{
 		engineName: '',
@@ -18,7 +18,6 @@ MateriaCreator.controller('creatorCtrl', ['$scope', '$http', function($scope, $h
 			return ($scope.widget.engineName = $scope.widget.title = widget.name);
 		});
 		return $http.get('assets/questions.json').then(function(success) {
-			var qset;
 			return qset = success.data.qset.data;
 		}, function(fail)
 		{
@@ -67,7 +66,7 @@ MateriaCreator.controller('creatorCtrl', ['$scope', '$http', function($scope, $h
 		console.log("import");
 		return null;
 	};
-	_buildSaveData = function()
+	var _buildSaveData = function()
 	{
 		return {
 			name: '',
