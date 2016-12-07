@@ -80,10 +80,6 @@ gulp.task('compress', function()
 					'!' + sourceString + buildLocation + '**/*.coffee',
 					'!' + sourceString + buildLocation + '*.scss',
 					'!' + sourceString + buildLocation + '**/*.scss',
-					'!' + sourceString + buildLocation + '*.less',
-					'!' + sourceString + buildLocation + '**/*.less',
-					'!' + sourceString + buildLocation + '*.jade',
-					'!' + sourceString + buildLocation + '**/*.jade',
 					'!' + sourceString + buildLocation + '*.zip',
 					'!' + sourceString + buildLocation + '*.wigt',])
 				.pipe( print() )
@@ -110,7 +106,6 @@ gulp.task('copy:init-baseWidgetFiles', function()
 					sourceString + 'src/demo.json',
 					sourceString + 'src/*.html',
 					sourceString + 'src/**/*.js',
-					sourceString + 'src/*.jsx',
 					sourceString + 'src/*.css'])
 				.on('error', function(msg) {console.log("copy:init Fail Error: ", msg.toString());})
 				.pipe( print() )
