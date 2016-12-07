@@ -15,9 +15,13 @@ describe('template', function() {
 			ctrl = $controller('templateCtrl', { $scope: $scope });
 		}));
 
-		it('should fail because phantom\'s browser height is inaccessible by materia.enginecore, yet "start" needs to run."', function() {
-			$('html').css('height', '200px');
-			expect($scope.start(widgetInfo, qset.data)).toThrow();
+		beforeEach(function(){
+			spyOn(Materia.Engine, 'setHeight').and.returnValue(466);
+		});
+
+		it('should be truthy if start function ran successfully"', function() {
+			$scope.start(widgetInfo, qset.data);
+			expect(true).toBeTruthy();
 		});
 
 		it('should have a title of "Template Widget"', function() {
