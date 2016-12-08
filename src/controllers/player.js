@@ -1,5 +1,19 @@
-var template = angular.module('template', []);
-
+/*
+** Template Note: Change template and templateCtrl with your widget name, and
+** widget name Ctrl, respectively. $scope.title = 'Template' should have your
+** widget name as well.
+**
+** $scope.start is the only truly necessary function, used by most, if not all
+** currently existing widget players.
+**
+** $scope.questionAnswered is function made specifically for this template as an example.
+** Replace with your widget's specific functions. Make sure to remove unit tests that
+** make reference to this function.
+**
+** The reference to 'return Materia.Engine.start($scope)' at the end is how the browser,
+** and your unit tests have access to the player's variables and functions. Typically, this
+** is something you'll need to keep.
+*/
 template.controller('templateCtrl', ['$scope', function($scope) {
 	var _qset = null;
 	var _scores = [];
@@ -38,7 +52,6 @@ template.controller('templateCtrl', ['$scope', function($scope) {
 				break;
 			}
 		}
-
 		if($scope.currentQuestion > -1) {
 			$scope.finalScore = $scope.questions[$scope.currentQuestion].answers[ans].value;
 			if($scope.finalScore < 100) {
@@ -50,6 +63,7 @@ template.controller('templateCtrl', ['$scope', function($scope) {
 		} else {
 			$scope.showAnswer = false;
 		}
+		$scope.currentQuestion = -1;
 	};
 
 	return Materia.Engine.start($scope);

@@ -1,7 +1,12 @@
-var MateriaCreator = angular.module('materiaCreator', []);
-
+/*
+** Template Note: These are the basic functions required to create an instance of a widget through
+** Materia's creator. Additional functions like those near the bottom can give your creator
+** functionality. Most widgets require more user input for unique widgets and have unique functions
+** to account for that input.
+*/
 MateriaCreator.controller('creatorCtrl', ['$scope', '$http', function($scope, $http) {
 	var qset = "";
+	$scope.newValid = false;
 	$scope.widget =
 	{
 		engineName: '',
@@ -17,7 +22,8 @@ MateriaCreator.controller('creatorCtrl', ['$scope', '$http', function($scope, $h
 			return $scope.widget.engineName = $scope.widget.title = widget.name;
 		});
 		return $http.get('assets/questions.json').then(function(success) {
-			return qset = success.data.qset.data;
+			return $scope.newValid = true;
+			//return qset = success.data.qset.data;
 		}, function(fail) {
 			return console.log("Could not load preset questions!");
 		});
@@ -31,10 +37,13 @@ MateriaCreator.controller('creatorCtrl', ['$scope', '$http', function($scope, $h
 		});
 		if (!qset.length) {
 			return $http.get('assets/questions.json').then(function(success) {
+				$scope.editValid = true;
 				return qset = success.data.qset.data;
 			}, function(fail) {
 				return console.log("Could not load preset questions!");
 			});
+		} else {
+			return qset;
 		}
 	};
 	$scope.onSaveClicked = function() {
@@ -45,19 +54,23 @@ MateriaCreator.controller('creatorCtrl', ['$scope', '$http', function($scope, $h
 			return Materia.CreatorCore.cancelSave('This widget has no title!');
 		}
 	};
-	$scope.onSaveComplete = function(title, widget, qset, version) {
-		console.log("complete");
-		return null;
-	};
-	$scope.onMediaImportComplete = function(media) {
-		console.log("import");
-		return null;
-	};
-	var _buildSaveData = function() {
-		return {
-			name: '',
-			items: []
-		};
-	};
+	/**
+	* Template Note: Typical creator function not needed in this example template
+	*
+	*	$scope.onSaveComplete = function(title, widget, qset, version) {
+	*		console.log("complete");
+	*		return null;
+	*	};
+	*	$scope.onMediaImportComplete = function(media) {
+	*		console.log("import");
+	*		return null;
+	*	};
+	*	var _buildSaveData = function() {
+	*		return {
+	*			name: '',
+	*			items: []
+	*		};
+	*	};
+	*/
 	return Materia.CreatorCore.start($scope);
 }]);

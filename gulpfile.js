@@ -1,3 +1,8 @@
+/*
+** Template Note: The following are the tasks that this basic widget uses to build itself
+** in command line, through the GUI, via test running, downloading a packaged widget,
+** or installing it to Materia. More complex widgets will require additional tasks.
+*/
 var argv = require('yargs').argv;
 var autoprefix = require('gulp-autoprefixer');
 var clean = require('gulp-clean');
@@ -19,7 +24,7 @@ var uglify = require('gulp-uglify');
 var zip = require('gulp-zip');
 
 var Server = require('karma').Server;
-
+// If built outside of devmateria, avoid looking for the config file.
 var configs = null;
 try
 {
@@ -35,15 +40,16 @@ var widget = sanitize("template-widget");
 var minify = argv.minify;
 var mangle = argv.mangle;
 var embed = argv.embed;
-
+// GUI can define which tasks are avoided based on desired outcome.
 var Embedding = (embed === "false") ? false : true;
 var Mangling = (mangle === "false") ? false : true;
 var Minifying = (minify === "false") ? false : true;
-
+// Changes between normal build and test build ('build/')
 var buildLocation = '.build/';
-
+// Since it is 'server.coffee' in the backend/ folder, this string points
+// to this widget's source files from server.coffee's perspective.
 var sourceString = "";
-
+// Points to the necessary faux materia files than help devmateria run.
 var materiaJsReplacements = [
 	{match: /src="materia.enginecore.js"/g, replacement: function() {return 'src="../../../js/materia.enginecore.js"';} },
 	{match: /src="materia.score.js"/g, replacement: 'src="../../../js/materia.score.js"'},
@@ -52,7 +58,6 @@ var materiaJsReplacements = [
 	{match: /src="materia.storage.manager.js"/g, replacement: 'src="../../../js/materia.storage.manager.js"'},
 	{match: /src="materia.storage.table.js"/g, replacement: 'src="../../../js/materia.storage.table.js"'}
 ];
-
 // Cleans folder of any old files before populating with the newest run.
 gulp.task('clean:pre', function()
 {
@@ -444,6 +449,7 @@ gulp.task('uglify', function()
 				.pipe( print() )
 				.pipe(gulp.dest(sourceString + buildLocation));
 });
+// Used to build through the command line when widget ins't in devmateria
 gulp.task('default', function ()
 {
 	sourceString = "";
@@ -478,7 +484,7 @@ gulp.task('default', function ()
 		'clean:package'
 	);
 });
-
+// Runs full test suite, including stylized coverage report.
 gulp.task('build-readable', function()
 {
 	testFull = true;
@@ -509,7 +515,7 @@ gulp.task('build-readable', function()
 		'clean:package'
 	);
 });
-
+// Runs basic test suite with rudimentary coverage file.
 var testFull = false;
 exports["buildReadable"] = function(widget, full, callback)
 {
@@ -553,7 +559,7 @@ exports["buildReadable"] = function(widget, full, callback)
 		'callback'
 	);
 };
-
+// Built through the devmateria GUI via server.coffee if widget is in devmateria.
 exports["gulp"] = function(widget, minify, mangle, embed, callback)
 {
 	widget = sanitize(widget);
@@ -601,12 +607,12 @@ exports["gulp"] = function(widget, minify, mangle, embed, callback)
 		'callback'
 	);
 };
-
+// Installs widget to Materia
 exports["install"] = function(callback)
 {
 	return fullExport(callback);
 };
-
+// Constructs installation path from config details, and handles any install specific errors.
 var fullExport = function(callback)
 {
 	var widgetPackagePostFix = Date.now();
@@ -654,12 +660,13 @@ var fullExport = function(callback)
 		}
 	});
 };
-
+// Removes offending characters from the widget title.
 function sanitize(str)
 {
 	if (str) { return str.replace(/[^a-zA-Z0-9-_]/g, ''); }
 	else { return ''; }
 }
+// Provides rudimentary help documentation from command line.
 function showDocs()
 {
 	console.log("\nGulp helps you develop and package HTML widgets for the Materia Platform.\n" +

@@ -55,6 +55,11 @@ describe('template', function() {
 			$scope.questionAnswered(qset.data.items[0].question[0], 3);
 			expect($scope.result).toBe("Correct!\nScore: " + 100);
 		});
+
+		it('should have (show) results equal false after answering a question with non-existant answer', function() {
+			$scope.questionAnswered("Some impossible to acceidentally get by accident question?", 0);
+			expect($scope.showAnswer).toBe(false);
+		});
 	});
 	
 });
@@ -84,12 +89,51 @@ describe('materiaCreator', function(){
 			return msg;
 		};
 
+		it('should have isEditingExistingWidget state as false before widget instantiation', function(){
+			expect($scope.state.isEditingExistingWidget).toBe(false);
+		});
+
 		it('should make a new widget', function(){
 			$scope.initNewWidget({name: 'template-widget'});
-
 			expect($scope.widget.engineName).toBe('template-widget');
 			expect($scope.widget.title).toBe('template-widget');
 		});
+
+		it('should receive a success when using initNewWidget', inject(function($http, $httpBackend) {
+			spyOn($scope, 'initNewWidget');
+			//$scope.initNewWidget = jasmine.createSpy("getName spy");
+			
+			//expect($scope.initNewWidget).toHaveBeenCalled();
+
+			//var $scope = {};
+
+			  /* code under test
+
+			  $http.get('http://localhost/foo')
+			    .success(function(data, status, headers, config) {
+			      $scope.fooData = data;
+			    });
+
+			  $http.get('http://localhost/bar')
+			    .success(function(data, status, headers, config) {
+			      $scope.barData = data;
+			    });
+
+			  /* end */
+
+			  $httpBackend
+			    .when('GET', function(url) {
+			      return url.indexOf('assets/questions.json') !== -1;
+			    })
+			    .respond(200, { success: { data: { qset: { data: 'value' }}}});
+
+			$scope.initNewWidget({name: 'template-widget'});
+
+			  //$httpBackend.flush();
+
+			  expect($scope.newValid).toBe(true);
+			  expect($scope.editValid).toBe(true);
+		}));
 
 		it('should cause an issue when saved without a title', function(){
 			expect($scope.onSaveClicked()).toBe('This widget has no title!');
@@ -100,8 +144,43 @@ describe('materiaCreator', function(){
 			expect($scope.onSaveClicked()).toBe(true);
 		});
 
-		it('should edit an existing widget', function(){
+		it('should edit an existing widget with file-stored qset', function(){
 			$scope.initExistingWidget('Template Widget', {name: 'template-widget'}, {});
+			expect($scope.initExistingWidget).toBeDefined();
+		});
+
+		it('should edit an existing widget with passed in qset', function(){
+			$scope.initExistingWidget('Template Widget', {name: 'template-widget'}, [
+					{
+						materiaType: "question",
+						id: 0,
+						type: "MC",
+						question: [
+							{
+								text: "What's the capital in Florida?"
+							}
+						],
+						answers: [
+							{
+								text: "Tallahassee",
+								value: 0
+							},
+							{
+								text: "Atlanta",
+								value: 0
+							},
+							{
+								text: "Orlando",
+								value: 0
+							},
+							{
+								text: "F",
+								value: 100
+							}
+						]
+					}
+				]
+			);
 			expect($scope.initExistingWidget).toBeDefined();
 		});
 	});
