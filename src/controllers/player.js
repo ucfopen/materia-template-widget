@@ -14,6 +14,8 @@
 ** and your unit tests have access to the player's variables and functions. Typically, this
 ** is something you'll need to keep.
 */
+var template = angular.module('template', []);
+
 template.controller('templateCtrl', ['$scope', function($scope) {
 	var _qset = null;
 	var _scores = [];

@@ -4,6 +4,8 @@
 ** functionality. Most widgets require more user input for unique widgets and have unique functions
 ** to account for that input.
 */
+var MateriaCreator = angular.module('materiaCreator', []);
+
 MateriaCreator.controller('creatorCtrl', ['$scope', '$http', function($scope, $http) {
 	var qset = "";
 	$scope.newValid = false;
@@ -22,8 +24,8 @@ MateriaCreator.controller('creatorCtrl', ['$scope', '$http', function($scope, $h
 			return $scope.widget.engineName = $scope.widget.title = widget.name;
 		});
 		return $http.get('assets/questions.json').then(function(success) {
-			return $scope.newValid = true;
-			//return qset = success.data.qset.data;
+			$scope.newValid = true;
+			return qset = success.data.qset.data;
 		}, function(fail) {
 			return console.log("Could not load preset questions!");
 		});

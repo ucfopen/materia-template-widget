@@ -2,4 +2,4 @@
 // Needed to be defined before the controller version is defined.
 // Change MateriaCreator for your windget name + Creator, and same for
 // 'materiaCreator'
-var MateriaCreator = angular.module('materiaCreator', []);
+angular.module('materiaCreator', []);
