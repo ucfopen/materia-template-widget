@@ -8,7 +8,6 @@ var MateriaCreator = angular.module('materiaCreator', []);
 
 MateriaCreator.controller('creatorCtrl', ['$scope', '$http', function($scope, $http) {
 	var qset = "";
-	$scope.newValid = false;
 	$scope.widget =
 	{
 		engineName: '',
@@ -24,7 +23,6 @@ MateriaCreator.controller('creatorCtrl', ['$scope', '$http', function($scope, $h
 			return $scope.widget.engineName = $scope.widget.title = widget.name;
 		});
 		return $http.get('assets/questions.json').then(function(success) {
-			$scope.newValid = true;
 			return qset = success.data.qset.data;
 		}, function(fail) {
 			return console.log("Could not load preset questions!");
@@ -39,7 +37,6 @@ MateriaCreator.controller('creatorCtrl', ['$scope', '$http', function($scope, $h
 		});
 		if (!qset.length) {
 			return $http.get('assets/questions.json').then(function(success) {
-				$scope.editValid = true;
 				return qset = success.data.qset.data;
 			}, function(fail) {
 				return console.log("Could not load preset questions!");

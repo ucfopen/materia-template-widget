@@ -99,42 +99,43 @@ describe('materiaCreator', function(){
 			expect($scope.widget.title).toBe('template-widget');
 		});
 
-		it('should receive a success when using initNewWidget', inject(function($http, $httpBackend) {
-			spyOn($scope, 'initNewWidget');
-			//$scope.initNewWidget = jasmine.createSpy("getName spy");
-			
-			//expect($scope.initNewWidget).toHaveBeenCalled();
+		it('should receive a success when using initNewWidget successfully', inject(function($httpBackend) {
+			var fakeHttpPromise = {
+				success: function() {}
+			};
+			spyOn($scope, 'initNewWidget').and.returnValue(fakeHttpPromise).and.callThrough();
 
-			//var $scope = {};
-
-			  /* code under test
-
-			  $http.get('http://localhost/foo')
-			    .success(function(data, status, headers, config) {
-			      $scope.fooData = data;
-			    });
-
-			  $http.get('http://localhost/bar')
-			    .success(function(data, status, headers, config) {
-			      $scope.barData = data;
-			    });
-
-			  /* end */
-
-			  $httpBackend
-			    .when('GET', function(url) {
-			      return url.indexOf('assets/questions.json') !== -1;
-			    })
-			    .respond(200, { success: { data: { qset: { data: 'value' }}}});
+			$httpBackend
+				.when('GET', function(url) {
+					return (url.indexOf('assets/questions.json') !== -1);
+				})
+				.respond(200, { qset: { data: 'value' }});
 
 			$scope.initNewWidget({name: 'template-widget'});
 
-			  //$httpBackend.flush();
-
-			  expect($scope.newValid).toBe(true);
-			  expect($scope.editValid).toBe(true);
+			$httpBackend.flush();
 		}));
+		
+		it('should receive a fail when using initNewWidget unsuccessfully', inject(function($httpBackend) {
+			var fakeHttpPromise = {
+				fail: function() {}
+			};
+			spyOn($scope, 'initNewWidget').and.returnValue(fakeHttpPromise).and.callThrough();
+			spyOn(console, 'log');
 
+			$httpBackend
+				.when('GET', function(url) {
+					return (url.indexOf('assets/questions.json') !== -1);
+				})
+				.respond(500, "failed");
+
+			$scope.initNewWidget({name: 'template-widget'});
+
+			expect(console.log).toHaveBeenCalled();
+
+			$httpBackend.flush();
+		}));
+		
 		it('should cause an issue when saved without a title', function(){
 			expect($scope.onSaveClicked()).toBe('This widget has no title!');
 		});
@@ -183,5 +184,42 @@ describe('materiaCreator', function(){
 			);
 			expect($scope.initExistingWidget).toBeDefined();
 		});
+
+		it('should receive a success when using initExistingWidget successfully', inject(function($httpBackend) {
+			var fakeHttpPromise = {
+				success: function() {}
+			};
+			spyOn($scope, 'initExistingWidget').and.returnValue(fakeHttpPromise).and.callThrough();
+
+			$httpBackend
+				.when('GET', function(url) {
+					return (url.indexOf('assets/questions.json') !== -1);
+				})
+				.respond(200, { qset: { data: 'value' }});
+
+			$scope.initExistingWidget('Template Widget', {name: 'template-widget'}, {});
+
+			$httpBackend.flush();
+		}));
+		
+		it('should receive a fail when using initExistingWidget unsuccessfully', inject(function($httpBackend) {
+			var fakeHttpPromise = {
+				fail: function() {}
+			};
+			spyOn($scope, 'initExistingWidget').and.returnValue(fakeHttpPromise).and.callThrough();
+			spyOn(console, 'log');
+
+			$httpBackend
+				.when('GET', function(url) {
+					return (url.indexOf('assets/questions.json') !== -1);
+				})
+				.respond(500, "failed");
+
+			$scope.initExistingWidget('Template Widget', {name: 'template-widget'}, {});
+
+			expect(console.log).toHaveBeenCalled();
+
+			$httpBackend.flush();
+		}));
 	});
 });
