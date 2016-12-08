@@ -18,7 +18,6 @@ var template = angular.module('template', []);
 
 template.controller('templateCtrl', ['$scope', function($scope) {
 	var _qset = null;
-	var _scores = [];
 	$scope.questions = [];
 	$scope.currentQuestion = -1;
 	$scope.currentAnswer = { index: -1 };
