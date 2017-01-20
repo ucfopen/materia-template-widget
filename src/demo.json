@@ -1,0 +1,38 @@
+{
+	"name": "Template Widget",
+	"qset": {
+		"version": 1,
+		"data": {
+			"items": [
+				{
+					"materiaType": "question",
+					"id": 0,
+					"type": "MC",
+					"question": [
+						{
+							"text": "What's the capital in Florida?"
+						}
+					],
+					"answers": [
+						{
+							"text": "Tallahassee",
+							"value": 0
+						},
+						{
+							"text": "Atlanta",
+							"value": 0
+						},
+						{
+							"text": "Orlando",
+							"value": 0
+						},
+						{
+							"text": "F",
+							"value": 100
+						}
+					]
+				}
+			]
+		}
+	}
+}

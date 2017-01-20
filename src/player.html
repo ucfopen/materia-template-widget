@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!-- INJECTS IE CLASSES ONTO HTML TAG -->
+<!--[if IE 8 ]>    <html class="IE8"> <![endif]-->
+<!--[if IE 9 ]>    <html class="IE9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class=""> <!--<![endif]-->
+	<head>
+		<title>Template Widget</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+		<!-- STYLESHEETS -->
+		<link rel="stylesheet" type="text/css" href="player.css">
+
+		<!-- REQUIRED MATERIA JAVASCRIPT -->
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="materia.enginecore.js"></script>
+
+		<!-- YOUR PREREQUISITES -->
+		<script src='//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular.min.js'></script>
+		<script src='//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular-sanitize.min.js'></script>
+
+		<!-- MAIN APP -->
+		<script src="modules/player.js"></script>
+		<script src="controllers/player.js"></script>
+
+		<!-- BE FINDER SCRIPT -->
+	</head>
+	<body ng-app="template">
+		<div id="container" ng-controller="templateCtrl">
+			<h1 id="logo">Template Widget</h1>
+			<div id="instructions">
+				<h2>Instructions</h2>
+				<p>You can copy and paste these basic widget files into your new widget repo to have an easy place to start building from.</p>
+			</div>
+			<div id="question">
+				Question: {{ questions[0].question.text }}
+			</div>
+			<div id="answer">
+				<ul>
+					<li ng-repeat="i in questions[0].answers">
+						<input type="radio" ng-model="currentAnswer.index" name="answerChoices" value="{{$index}}" ng-change="questionAnswered(questions[0].question, currentAnswer.index)">
+						<label name="answerChoices">{{questions[0].answers[$index].text}}</label>
+					</li>
+				</ul>
+			</div>
+			<div id="modalContainer" ng-show="showAnswer">
+				<h2>{{result}}</h2>
+			</div>
+		</div>
+	</body>
+</html>
