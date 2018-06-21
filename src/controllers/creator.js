@@ -6,7 +6,7 @@
 */
 var MateriaCreator = angular.module('materiaCreator', []);
 
-MateriaCreator.controller('creatorCtrl', ['$scope', '$http', function($scope, $http) {
+MateriaCreator.controller('creatorCtrl', ['$scope', function($scope) {
 	var qset = "";
 	$scope.widget =
 	{
@@ -22,11 +22,6 @@ MateriaCreator.controller('creatorCtrl', ['$scope', '$http', function($scope, $h
 		$scope.$apply(function() {
 			return $scope.widget.engineName = $scope.widget.title = widget.name;
 		});
-		return $http.get('assets/questions.json').then(function(success) {
-			return qset = success.data.qset.data;
-		}, function(fail) {
-			return console.log("Could not load preset questions!");
-		});
 	};
 	$scope.initExistingWidget = function(title, widget, qset, version, baseUrl) {
 		console.log("edit");
@@ -35,13 +30,7 @@ MateriaCreator.controller('creatorCtrl', ['$scope', '$http', function($scope, $h
 			$scope.widget.engineName = widget.name;
 			return $scope.widget.title = title;
 		});
-		if (!qset.length) {
-			return $http.get('assets/questions.json').then(function(success) {
-				return qset = success.data.qset.data;
-			}, function(fail) {
-				return console.log("Could not load preset questions!");
-			});
-		} else {
+		if (qset.length) {
 			return qset;
 		}
 	};

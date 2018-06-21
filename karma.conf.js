@@ -8,11 +8,13 @@ module.exports = function(config) {
 		browsers: ['PhantomJS'],
 		// Template Note: Files loaded into framework. Order matters.
 		files: [
-			'../../js/materia.creatorcore.js',
-			'../../js/*.js',
 			'node_modules/angular/angular.js',
 			'node_modules/angular-mocks/angular-mocks.js',
 			'node_modules/angular-sanitize/angular-sanitize.js',
+			'node_modules/materia-client-assets/dist/js/materia.js',
+			'node_modules/materia-client-assets/dist/js/materia.creatorcore.js',
+			'node_modules/materia-client-assets/dist/js/materia.enginecore.js',
+			'node_modules/materia-client-assets/dist/js/materia.scorecore.js',
 			'build/demo.json',
 			'build/modules/*.js',
 			'build/controllers/*.js',

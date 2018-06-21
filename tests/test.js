@@ -74,7 +74,7 @@ describe('template', function() {
 			expect($scope.showAnswer).toBe(false);
 		});
 	});
-	
+
 });
 
 describe('materiaCreator', function(){
@@ -128,7 +128,7 @@ describe('materiaCreator', function(){
 
 			$httpBackend.flush();
 		}));
-		
+
 		it('should receive a fail when using initNewWidget unsuccessfully', inject(function($httpBackend) {
 			var fakeHttpPromise = {
 				fail: function() {}
@@ -148,7 +148,7 @@ describe('materiaCreator', function(){
 
 			$httpBackend.flush();
 		}));
-		
+
 		it('should cause an issue when saved without a title', function(){
 			expect($scope.onSaveClicked()).toBe('This widget has no title!');
 		});
@@ -214,7 +214,7 @@ describe('materiaCreator', function(){
 
 			$httpBackend.flush();
 		}));
-		
+
 		it('should receive a fail when using initExistingWidget unsuccessfully', inject(function($httpBackend) {
 			var fakeHttpPromise = {
 				fail: function() {}
