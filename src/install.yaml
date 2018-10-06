@@ -1,4 +1,5 @@
 ---
+# SEE DOCS https://ucfopen.github.io/Materia-Docs/develop/install-yaml.html
 general:
   name: Template Widget
   group: Materia
@@ -18,12 +19,15 @@ files:
 score:
   is_scorable: Yes
   score_module: TemplateWidget
+  # score_screen: scoreScreen.html # OPTIONAL
 meta_data:
   features:
     - Customizable
     - Scorable
   supported_data:
     - Multiple Choice
+    # - Question/Answer
+    # - My custom Question
   about: >
     This is a simple widget for first-time
     Materia developers to have a basuc starting place.

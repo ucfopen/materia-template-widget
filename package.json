@@ -1,41 +1,18 @@
 {
-  "name": "Template-Widget",
+  "name": "@ucfopen/template-widget",
   "materia": {
     "cleanName": "template-widget"
   },
-  "version": "1.0.0",
-  "private": true,
-  "main": "app.js",
   "dependencies": {
-    "angular": "~1.5.0",
-    "angular-animate": "~1.5.0",
-    "angular-loader": "~1.5.0",
-    "angular-mocks": "~1.5.0",
-    "angular-route": "~1.5.0",
-    "angular-sanitize": "~1.5.0",
-    "materia-widget-development-kit": "git+ssh://git@clu.cdl.ucf.edu:materia/materia-widget-development-kit.git#~v1.1.0"
-  },
-  "devDependencies": {
-    "jasmine-core": "^2.4.1",
-    "karma": "^0.13.22",
-    "karma-coverage": "^0.5.5",
-    "karma-eslint": "^2.1.0",
-    "karma-jasmine": "^0.3.8",
-    "karma-json-fixtures-preprocessor": "0.0.6",
-    "karma-junit-reporter": "^0.4.1",
-    "karma-mocha-reporter": "^2.1.0",
-    "karma-phantomjs-launcher": "^1.0.2"
+    "materia-widget-development-kit": "https://github.com/ucfopen/Materia-Widget-Dev-Kit.git#v1.2.3-alpha3",
+    "ng-annotate-loader": "^0.6.1"
   },
   "scripts": {
     "start": "webpack-dev-server",
-    "buildDev": "webpack",
-    "build": "webpack -p",
-    "pretest": "npm run buildDev",
-    "test": "karma start ./karma.conf.js --no-auto-watch --single-run",
-    "pretestFull": "npm run buildDev",
-    "testFull": "karma start ./karma-full.conf.js",
-    "clientAssets:link": "cd ../materia-client-assets && yarn link && cd - && yarn link materia-client-assets",
-    "devKit:link": "cd ../materia-widget-development-kit && yarn link && cd - && yarn link materia-widget-development-kit"
+    "build": "webpack",
+    "build-prod": "webpack -p"
   },
-  "author": "New Media"
+  "author": "University of Central Florida, Center for Distributed Learning",
+  "description": "Template widget to use as an example.",
+  "license": "AGPL-3.0"
 }
