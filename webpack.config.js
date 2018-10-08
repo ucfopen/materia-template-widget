@@ -4,10 +4,12 @@ This config has various options for using the
 legacy webpack template to build your widget with
 tons of options for customizing
 
+To really understand what's going on, you'll need to look at the source
+of the Materia Widget Development Kit:
 See https://github.com/ucfopen/Materia-Widget-Dev-Kit/blob/master/webpack-widget.js
 
 BEST PRACTICES FOR PACKAGING WIDGETS
-1. JS & CSS: concatinate into one file: all css into player.css, all js into player.js
+1. JS & CSS: concatenate into one file: all css into player.css, all js into player.js
 2. Use CDN's for vendor libraries (see cdnjs)
 3. Avoid use of libraries when plain js will do (like jquery)
 4. When using ANGULAR.js, use ng-annotate-loader to protect dependency injection from minification
@@ -33,7 +35,7 @@ Normally getLegacyWidgetBuildConfig expects:
 ==== DIFFERENT IN THIS EXAMPLE ====
 We're using coffeescript, but in our case it's angular
 and we're relying on a loader to protect shorthand
-dependency injection syntax, so we'll
+dependency injection syntax
 
 ==== CHANGES NEEDED ====
 1. Replace coffeescript loader
@@ -75,11 +77,12 @@ entries['player.js'] = [
 	path.join(srcPath, 'player-controller.js')
 ]
 
-// #2. re-target do-nothing-to-js rule for just our player files
-// Only needed because we don't want a generic *.js rule
-// to apply to the ScoreScreen
+// #2. Redefine ".test" on loaderDoNothingToJs for just our player files
+// Only needed because we don't want a generic *.js rule to apply
+// to the ScoreScreen
 const customDoNothingToJs = rules.loaderDoNothingToJs
 customDoNothingToJs.test = /player-.*\.js$/i
+
 
 
 
@@ -92,7 +95,7 @@ getLegacyWidgetBuildConfig doesn't have rules for scoreScreen.
 ==== DIFFERENT IN THIS EXAMPLE ====
 We'll be using React, JSX, Babel, and PLAIN CSS
 
-,We'll add entries for the html, a plain css file and a React
+We'll add entries for the html, a plain css file and a React
 
 ==== CHANGES NEEDED ====
 1. Add an entry for ScoreScreen.js
@@ -102,25 +105,26 @@ We'll be using React, JSX, Babel, and PLAIN CSS
    and react-dom from being compiled (at bottom of file)
 
 NOTE, #3 will be loading .js files - make sure this rule
-doesn't conflict with other loaders if your not using
+doesn't conflict with other loaders if you're not using
 react for all parts of the widget.  In this example, you
-can see how we changed the do-nothing-to-js rules
+can see how we changed the loaderDoNothingToJss
 to more specifically target the desired files, and
 not affect the rules for react.
 
 */
 
-// React and ES6 via Babel
+// #1 React and ES6 via Babel
 entries['scoreScreen.js'] = [
 	path.join(srcPath, 'scoreScreen.js'),
 ]
 
-// CSS & HTML
+// #2 CSS & HTML
 entries['scoreScreen.css'] = [
 	path.join(srcPath, 'scoreScreen.html'),
 	path.join(srcPath, 'scoreScreen.css')
 ]
 
+// #3 Custom module loader for react
 const customReactLoader = {
 	test: /scoreScreen\.js$/i,
 	exclude: /node_modules/,
@@ -131,6 +135,9 @@ const customReactLoader = {
 		}
 	}
 }
+
+
+
 
 
 /*
@@ -150,6 +157,7 @@ We need extrafile.txt in the "root" directory
 const customCopy = copy.concat([
 	path.join(srcPath, 'extrafile.txt')
 ])
+
 
 
 
@@ -184,6 +192,7 @@ let options = {
 
 const ourFinalWebpackConfig = widgetWebpack.getLegacyWidgetBuildConfig(options)
 
+// Score Screen #4 (from further up in this file)
 // after building, modify externals to make sure
 // React and React-Dom are not compiled
 // into our source code for the Score Screen

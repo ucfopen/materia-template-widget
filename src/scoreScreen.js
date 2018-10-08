@@ -5,4 +5,3 @@ ReactDOM.render(
 	<div>It's working!</div>,
 	document.getElementById('root')
 );
-
