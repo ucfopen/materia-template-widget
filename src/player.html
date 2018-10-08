@@ -30,19 +30,20 @@
 			</div>
 			<div id="answer">
 				<ul>
-					<li ng-repeat="answer in question.answers">
+					<li ng-repeat="answer in question.answers track by $index">
 						<input
 							type="radio"
+							name="answer"
 							id="{{ 'answerChoice' + answer.id }}"
-							ng-model="chosenAnswerIndex"
-							value="{{ answer.id }}"
-							ng-change="questionAnswered(question, answer)"
+							ng-model="radioModel.selected"
+							ng-value="answer"
+							ng-change="checkAnswers(question, answer)"
 						>
 						<label for="{{ 'answerChoice' + answer.id }}">{{ answer.text }}</label>
 					</li>
 				</ul>
 			</div>
-			<div id="modalContainer" ng-show="showAnswer">
+			<div id="modalContainer" ng-if="result">
 				<h2>{{result}}</h2>
 			</div>
 		</div>
