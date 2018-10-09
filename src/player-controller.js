@@ -21,7 +21,6 @@ template.controller('PlayerController', ['$scope', function($scope) {
 
 	// answer checking function
 	var checkAnswers = function(question, answer) {
-		console.log("Answer chosen")
 		$scope.result = (answer.value == 100 ? "Correct!" : "Incorrect!") + "\n Score:" + answer.value
 	};
 

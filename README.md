@@ -15,3 +15,17 @@ It's complete with unit tests, not all of which are required. A few superfluous 
 
 
 > NOTE: If you are cloning this widget, to make a new widget, then make sure to redirect your remote git repo to the new widget repo.
+
+
+## Testing
+
+## Testing Coffeescript with Jest
+
+Add `jest-coffee-preprocessor` and add properties to package.json to define `jest.transform` and `jest.moduleFileExtensions`.  They must be customized to load and transform coffeescript.
+
+## Testing Angular
+
+You'll need angular mock, and you'll have to use the inject function to get a reference to modules and dependencies
+
+## Testing React, JSX, ES6
+

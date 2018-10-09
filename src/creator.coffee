@@ -9,34 +9,31 @@ creator = angular.module('creator', [])
 # Note, this less verbose AngularJS module definition requires protection
 # from minification in webpack using a library like ng-annotate-loader
 # Note that player-controller.js is written in a way that doesn't require protection
-creator.controller 'creatorCtrl', ($scope) ->
+creator.controller 'CreatorCtrl', ($scope) ->
 	materiaCallbacks = {}
-	qset = ""
+	_qset = ""
 
 	# Callback when a new widget is being created
 	materiaCallbacks.initNewWidget = (widget) =>
 		console.log "new"
-		$scope.$apply(() => $scope.widget.engineName = $scope.widget.title = widget.name)
+		$scope.$apply () =>
+			$scope.widget.engineName = $scope.widget.title = widget.name
 
 	# Callback when editing an existing widget
 	materiaCallbacks.initExistingWidget = (title, widget, qset, version, baseUrl) =>
 		console.log "edit"
-		$scope.state.isEditingExistingWidget = true
-
-		$scope.$apply(() =>
-			$scope.widget.engineName = widget.name
-			return $scope.widget.title = title
-		)
-
-		return qset if qset.length
+		_qset = qset
+		$scope.$apply () =>
+			$scope.state.isEditingExistingWidget = true
+			$scope.widget.engineName = $scope.widget.title = widget.name
 
 	# Callback when widget save is clicked
 	materiaCallbacks.onSaveClicked = () =>
 		console.log "save"
 		if $scope.widget.title
-			return Materia.CreatorCore.save $scope.widget.title, qset
+			Materia.CreatorCore.save $scope.widget.title, _qset
 		else
-			return Materia.CreatorCore.cancelSave 'This widget has no title!'
+			Materia.CreatorCore.cancelSave 'This widget has no title!'
 
 	# NOT USED - Example callback for after save is complete
 	# materiaCallbacks.onSaveComplete = (title, widget, qset, version) =>
