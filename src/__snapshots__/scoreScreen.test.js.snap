@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ScoreScreen start renders as expected 1`] = `
+<mockConstructor
+  scoreTable={
+    Array [
+      Object {
+        "data": Array [
+          "Mock Question 1",
+          "Mock Correct Answer 1",
+          "Mock Given Answer 1",
+        ],
+        "score": 100,
+        "symbol": "%",
+      },
+      Object {
+        "data": Array [
+          "Mock Question 2",
+          "Mock Correct Answer 2",
+          "Mock Given Answer 2",
+        ],
+        "score": 0,
+        "symbol": " points",
+      },
+    ]
+  }
+  title="mock-name"
+/>
+`;
+
+exports[`ScoreScreen update renders as expected 1`] = `
+<mockConstructor
+  scoreTable={
+    Array [
+      Object {
+        "data": Array [
+          "Mock Question 1",
+          "Mock Correct Answer 1",
+          "Mock Given Answer 1",
+        ],
+        "score": 100,
+        "symbol": "%",
+      },
+      Object {
+        "data": Array [
+          "Mock Question 2",
+          "Mock Correct Answer 2",
+          "Mock Given Answer 2",
+        ],
+        "score": 0,
+        "symbol": " points",
+      },
+    ]
+  }
+  title=""
+/>
+`;

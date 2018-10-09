@@ -126,7 +126,7 @@ entries['scoreScreen.css'] = [
 
 // #3 Custom module loader for react
 const customReactLoader = {
-	test: /scoreScreen\.js$/i,
+	test: /scoreScreen.*\.js$/i,
 	exclude: /node_modules/,
 	use: {
 		loader: 'babel-loader',

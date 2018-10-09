@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ScoreScreen component ScoreScreen renders empty table 1`] = `
+<div>
+  <div
+    id="title"
+  >
+    mock-title
+  </div>
+  <div>
+    Score Table
+  </div>
+</div>
+`;
+
+exports[`ScoreScreen component ScoreScreen renders title and table 1`] = `
+<div>
+  <div
+    id="title"
+  >
+    mock-title
+  </div>
+  <div>
+    Score Table
+  </div>
+  <div>
+    <div>
+      Question
+    </div>
+    <div>
+      Mock Question 1
+    </div>
+    <div>
+      Score
+    </div>
+    <div>
+      100
+      %
+    </div>
+    <div>
+      Correct Answer
+    </div>
+    <div>
+      Mock Correct Answer 1
+    </div>
+    <div>
+      Given Answer
+    </div>
+    <div>
+      Mock Given Answer 1
+    </div>
+  </div>
+  <div>
+    <div>
+      Question
+    </div>
+    <div>
+      Mock Question 2
+    </div>
+    <div>
+      Score
+    </div>
+    <div>
+      0
+       points
+    </div>
+    <div>
+      Correct Answer
+    </div>
+    <div>
+      Mock Correct Answer 2
+    </div>
+    <div>
+      Given Answer
+    </div>
+    <div>
+      Mock Given Answer 2
+    </div>
+  </div>
+</div>
+`;
