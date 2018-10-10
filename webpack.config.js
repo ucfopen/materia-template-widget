@@ -19,6 +19,7 @@ BEST PRACTICES FOR PACKAGING WIDGETS
 const path = require('path')
 const fs = require('fs')
 const srcPath = path.join(__dirname, 'src')
+const outputPath = path.join(__dirname, 'build')
 const widgetWebpack = require('materia-widget-development-kit/webpack-widget')
 
 const rules = widgetWebpack.getDefaultRules()
@@ -154,9 +155,10 @@ We need extrafile.txt in the "root" directory
 
 */
 
-const customCopy = copy.concat([
-	path.join(srcPath, 'extrafile.txt')
-])
+const customCopy = copy.concat([{
+	from: path.join(srcPath, 'extrafile.txt'),
+	to: outputPath
+}])
 
 
 

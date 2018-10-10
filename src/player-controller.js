@@ -21,17 +21,25 @@ template.controller('PlayerController', ['$scope', function($scope) {
 
 	// answer checking function
 	var checkAnswers = function(question, answer) {
-		$scope.result = (answer.value == 100 ? "Correct!" : "Incorrect!") + "\n Score:" + answer.value
+		Materia.Score.submitFinalScoreFromClient(question.id, answer.id, answer.value)
+		Materia.Engine.alert((answer.value == 100 ? "Correct!" : "Incorrect!"), `Score: ${answer.value}`)
+		$scope.displayFinish = true;
 	};
+
+	// tell materia we're done
+	var submitFinalScore = function() {
+		Materia.Engine.end()
+	}
 
 	// Expose Scope vars
 	$scope.checkAnswers = checkAnswers
+	$scope.submitFinal = submitFinalScore
 	// question to display
 	$scope.question = null;
 	// radio button ng-model
 	$scope.radioModel = { selected: 'current'}
-	// result display
-	$scope.result = "";
+	// display finish button
+	$scope.displayFinish = false;
 	// widget title
 	$scope.title = "";
 

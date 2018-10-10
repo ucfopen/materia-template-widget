@@ -35,16 +35,22 @@ creator.controller 'CreatorCtrl', ($scope) ->
 		else
 			Materia.CreatorCore.cancelSave 'This widget has no title!'
 
-	# NOT USED - Example callback for after save is complete
-	# materiaCallbacks.onSaveComplete = (title, widget, qset, version) =>
-	# 	console.log "complete"
-	# 	return null
+	# Example callback for after save is complete
+	materiaCallbacks.onSaveComplete = (title, widget, qset, version) =>
+		console.log "save complete", arguments
+		return null
+
+	# NOT USED - Example callback for after import questions has been used
+	# NOTE - the widget's install.yaml must have list
+	# Multiple Choice or Question/Answer for import dialog to show
+	materiaCallbacks.onQuestionImportComplete = (questions) =>
+		console.log "import questions", questions
+		return null
 
 	# NOT USED - Example callback for after a media file is uploaded
 	# materiaCallbacks.onMediaImportComplete = (media) =>
-	# 	console.log "import"
+	# 	console.log "import media", media
 	# 	return null
-
 
 	# Set variables on scope
 	$scope.widget =
