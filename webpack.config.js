@@ -53,7 +53,6 @@ const customCoffeeLoader = {
 
 
 
-
 /*
 ======= WIDGET PLAYER ======
 Normally getLegacyWidgetBuildConfig expects:
