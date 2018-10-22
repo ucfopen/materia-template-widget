@@ -19,9 +19,12 @@
     "start": "webpack-dev-server",
     "build": "webpack",
     "build-prod": "webpack -p",
-    "test": "jest"
+    "test": "TZ='America/New_York' jest --verbose",
+    "test-ci": "TZ='America/New_York' CI=true jest --ci --useStderr --coverage --coverageReporters text-summary cobertura"
   },
   "jest": {
+    "coverageReporters": ["text", "lcov"],
+    "verbose": false,
     "transform": {
       "^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest",
       "^.+\\.coffee$": "<rootDir>/node_modules/jest-coffee-preprocessor/index.js"
@@ -34,7 +37,14 @@
     ],
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}"
-    ]
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100
+      }
+    }
   },
   "author": "University of Central Florida, Center for Distributed Learning",
   "description": "Template widget to use as an example.",

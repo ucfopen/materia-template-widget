@@ -6,7 +6,16 @@ describe('PlayerController', function() {
 	beforeEach(() => {
 		jest.resetModules()
 		angular.mock.module('player')
-		global.Materia = {Engine: {start: jest.fn()}}
+		global.Materia = {
+			Engine: {
+				start: jest.fn(),
+				alert: jest.fn(),
+				end: jest.fn()
+			},
+			Score: {
+				submitFinalScoreFromClient: jest.fn()
+			}
+		}
 
 		require('./player-module');
 		require('./player-controller');
@@ -28,28 +37,69 @@ describe('PlayerController', function() {
 		var controller = $controller('PlayerController', { $scope })
 		expect($scope).toEqual({
 			checkAnswers: expect.any(Function),
+			displayFinish: false,
 			question: null,
 			radioModel: {
 				selected: 'current'
 			},
-			result: '',
+			submitFinal: expect.any(Function),
 			title: ''
 		})
 	});
 
-	test('checkAnswers updates result', () => {
+	test('checkAnswers displays finish button', () => {
 		var $scope = {}
 		var controller = $controller('PlayerController', { $scope })
-		expect($scope).toHaveProperty('result', "")
+		expect($scope).toHaveProperty('displayFinish', false)
 		$scope.checkAnswers({}, {value: 100})
-		expect($scope.result).toBe("Correct!\n Score:100")
+		expect($scope).toHaveProperty('displayFinish', true)
 
 		$scope.checkAnswers({}, {value: 99})
-		expect($scope.result).toBe("Incorrect!\n Score:99")
+		expect($scope).toHaveProperty('displayFinish', true)
 
 		$scope.checkAnswers({}, {value: 0})
-		expect($scope.result).toBe("Incorrect!\n Score:0")
+		expect($scope).toHaveProperty('displayFinish', true)
 	});
+
+	test('checkAnswers calls alert', () => {
+		var $scope = {}
+		var controller = $controller('PlayerController', { $scope })
+		expect(Materia.Engine.alert).not.toHaveBeenCalled()
+
+		$scope.checkAnswers({}, {value: 100})
+		expect(Materia.Engine.alert).toHaveBeenLastCalledWith('Correct!', 'Score: 100')
+
+		$scope.checkAnswers({}, {value: 99})
+		expect(Materia.Engine.alert).toHaveBeenLastCalledWith('Incorrect!', 'Score: 99')
+
+		$scope.checkAnswers({}, {value: 0})
+		expect(Materia.Engine.alert).toHaveBeenLastCalledWith('Incorrect!', 'Score: 0')
+	});
+
+
+	test('checkAnswers sends a score log', () => {
+		var $scope = {}
+		var controller = $controller('PlayerController', { $scope })
+		expect(Materia.Score.submitFinalScoreFromClient).not.toHaveBeenCalled()
+
+		$scope.checkAnswers({id: 'mock-question-id'}, {id: 'mock-answer-id', value: 100})
+		expect(Materia.Score.submitFinalScoreFromClient).toHaveBeenLastCalledWith('mock-question-id', 'mock-answer-id', 100)
+
+		$scope.checkAnswers({id: 'mock-question-id'}, {id: 'mock-answer-id', value: 99})
+		expect(Materia.Score.submitFinalScoreFromClient).toHaveBeenLastCalledWith('mock-question-id', 'mock-answer-id', 99)
+
+		$scope.checkAnswers({id: 'mock-question-id'}, {id: 'mock-answer-id', value: 0})
+		expect(Materia.Score.submitFinalScoreFromClient).toHaveBeenLastCalledWith('mock-question-id', 'mock-answer-id', 0)
+	});
+
+	test('submitFinal calls end', () => {
+		var $scope = {$apply: jest.fn()}
+		var controller = $controller('PlayerController', { $scope })
+
+		expect(Materia.Engine.end).not.toHaveBeenCalled()
+		$scope.submitFinal()
+		expect(Materia.Engine.end).toHaveBeenCalled()
+	})
 
 	test('startCallback populates data and calls $apply', () => {
 		var $scope = {$apply: jest.fn()}
