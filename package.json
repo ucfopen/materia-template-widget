@@ -9,7 +9,7 @@
     "babel-preset-react": "^6.24.1",
     "jest": "^23.6.0",
     "jest-coffee-preprocessor": "^1.0.0",
-    "materia-widget-development-kit": "v2.0.0-alpha3",
+    "materia-widget-development-kit": "v2.0.0-alpha4",
     "ng-annotate-loader": "^0.6.1",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
@@ -17,8 +17,8 @@
   },
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "webpack",
-    "build-prod": "webpack -p",
+    "build": "webpack -p",
+    "build-dev": "webpack",
     "test": "TZ='America/New_York' jest --verbose",
     "test-ci": "TZ='America/New_York' CI=true jest --ci --useStderr --coverage --coverageReporters text-summary cobertura"
   },
