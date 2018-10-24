@@ -31,12 +31,10 @@
     },
     "moduleFileExtensions": [
       "coffee",
-      "js",
-      "json",
-      "jsx"
+      "js"
     ],
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx}"
+      "src/**/*.{js,coffee}"
     ],
     "coverageThreshold": {
       "global": {

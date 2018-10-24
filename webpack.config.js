@@ -18,7 +18,7 @@ BEST PRACTICES FOR PACKAGING WIDGETS
 */
 const path = require('path')
 const fs = require('fs')
-const srcPath = path.join(__dirname, 'src')
+const srcPath = path.join(__dirname, 'src') + path.sep
 const outputPath = path.join(__dirname, 'build')
 const widgetWebpack = require('materia-widget-development-kit/webpack-widget')
 
@@ -73,8 +73,8 @@ NOTE: #2 is only needed because we don't want a generic *.js rule to apply to sc
 
 // #1. combine 2 plain js files into player.js
 entries['player.js'] = [
-	path.join(srcPath, 'player-module.js'),
-	path.join(srcPath, 'player-controller.js')
+	`${srcPath}player-module.js`,
+	`${srcPath}player-controller.js`
 ]
 
 // #2. Redefine ".test" on loaderDoNothingToJs for just our player files
@@ -115,13 +115,13 @@ not affect the rules for react.
 
 // #1 React and ES6 via Babel
 entries['scoreScreen.js'] = [
-	path.join(srcPath, 'scoreScreen.js'),
+	`${srcPath}scoreScreen.js`,
 ]
 
 // #2 CSS & HTML
 entries['scoreScreen.css'] = [
-	path.join(srcPath, 'scoreScreen.html'),
-	path.join(srcPath, 'scoreScreen.css')
+	`${srcPath}scoreScreen.html`,
+	`${srcPath}scoreScreen.css`
 ]
 
 // #3 Custom module loader for react
@@ -155,7 +155,7 @@ We need extrafile.txt in the "root" directory
 */
 
 const customCopy = copy.concat([{
-	from: path.join(srcPath, 'extrafile.txt'),
+	from: `${srcPath}extrafile.txt`,
 	to: outputPath
 }])
 

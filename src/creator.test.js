@@ -131,5 +131,20 @@ describe('Creator Controller', function() {
 		expect(Materia.CreatorCore.cancelSave).toHaveBeenCalledWith('This widget has no title!')
 	});
 
+	test('onSaveComplete returns expcted value', () => {
+		var $scope = { $apply: jest.fn() }
+		var controller = $controller('CreatorCtrl', { $scope })
+		var materiaCallbacks = global.Materia.CreatorCore.start.mock.calls.pop()[0]
+		let result = materiaCallbacks.onSaveComplete()
+		expect(result).toBe(null)
+	})
+
+	test('onQuestionImportComplete returns expcted value', () => {
+		var $scope = { $apply: jest.fn() }
+		var controller = $controller('CreatorCtrl', { $scope })
+		var materiaCallbacks = global.Materia.CreatorCore.start.mock.calls.pop()[0]
+		let result = materiaCallbacks.onQuestionImportComplete()
+		expect(result).toBe(null)
+	})
 
 })

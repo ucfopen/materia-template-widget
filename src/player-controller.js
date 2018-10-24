@@ -22,7 +22,7 @@ template.controller('PlayerController', ['$scope', function($scope) {
 	// answer checking function
 	var checkAnswers = function(question, answer) {
 		Materia.Score.submitFinalScoreFromClient(question.id, answer.id, answer.value)
-		Materia.Engine.alert(answer.value == 100 ? "Correct!" : "Incorrect!", `Score: ${answer.value}`)
+		Materia.Engine.alert(answer.value == 100 ? "Correct!" : "Incorrect!", 'Score: ' + answer.value)
 		$scope.displayFinish = true;
 	};
 
