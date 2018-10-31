@@ -23,7 +23,10 @@
     "test-ci": "TZ='America/New_York' CI=true jest --ci --useStderr --coverage --coverageReporters text-summary cobertura"
   },
   "jest": {
-    "coverageReporters": ["text", "lcov"],
+    "coverageReporters": [
+      "text",
+      "lcov"
+    ],
     "verbose": false,
     "transform": {
       "^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest",
@@ -46,5 +49,6 @@
   },
   "author": "University of Central Florida, Center for Distributed Learning",
   "description": "Template widget to use as an example.",
-  "license": "AGPL-3.0"
+  "license": "AGPL-3.0",
+  "version": "1.0.1"
 }
