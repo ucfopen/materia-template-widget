@@ -10,28 +10,18 @@
 					"type": "MC",
 					"question": [
 						{
-							"text": "What's the capital in Florida?"
+							"text": "This is the demo dev json file!!?"
 						}
 					],
 					"answers": [
 						{
 							"id": null,
-							"text": "Tallahassee",
+							"text": "this one's is right!",
 							"value": 100
 						},
 						{
 							"id": null,
-							"text": "Atlanta",
-							"value": 0
-						},
-						{
-							"id": null,
-							"text": "Orlando",
-							"value": 0
-						},
-						{
-							"id": null,
-							"text": "Jacksonville",
+							"text": "this one is wrong",
 							"value": 0
 						}
 					]
