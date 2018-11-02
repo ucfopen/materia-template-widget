@@ -9,7 +9,7 @@
     "babel-preset-react": "^6.24.1",
     "jest": "^23.6.0",
     "jest-coffee-preprocessor": "^1.0.0",
-    "materia-widget-development-kit": "v2.0.0-alpha4",
+    "materia-widget-development-kit": "^2.0.0",
     "ng-annotate-loader": "^0.6.1",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",

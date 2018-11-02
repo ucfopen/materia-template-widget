@@ -1,31 +1,24 @@
-# Template Widget
+<h1>
+    <img src="src/_icons/icon-60.png" width="36px"/>
+    Template Widget: An Example of a Materia Widget
+</h1>
 
-This widget serves as a starting point to copy and paste from when making a widget 'from scratch.'
+This widget serves as a starting point to copy and paste from when making a widget 'from scratch'.
 
-This widget shows how to build and test several different builds.  Normally you'd build your entire widget with one consistent framework, but this one contains multiple types as an example of how to bend the webpack build to your will.
+Template Widget is designed for use with [Materia](https://github.com/ucfopen/Materia), an open-source platform for interactive course content developed by the University of Central Florida.
 
-* Angular and plain Javascript: Widget Player
-* Angular and Coffeescript: Widget Creator
-* React and ES6: Score Screen
+![Template Widget Player](src/_screen-shots/1.png)
 
-The webpack.config.js file contains a lot of documentation to help you understand how to work with the MWDK and our webpack configuration that helps build and package widgets.
+### Basic Use
 
+In a production evironment, Template Widget is installed to your Materia instance and is accessed via the Widget Catalog. For development, Template Widget is bundled with the [Materia Widget Development Kit](https://github.com/ucfopen/Materia-Widget-Dev-Kit), which allows for rapid development in a local context using express.js.
 
-It's complete with unit tests, not all of which are required. A few superfluous functions and subsequent tests were added to show minimal functionality. The internal comments direct to which areas are expendable, and which are essential.
+### Local Development
 
+Template Widget uses the Materia Widget Development Kit for location development. Check out [the docs for the MDK](https://ucfopen.github.io/Materia-Docs/develop/materia-widget-development-kit.html) to learn more about starting up the local express environment.
 
-> NOTE: If you are cloning this widget, to make a new widget, then make sure to redirect your remote git repo to the new widget repo.
+### Installation to Materia
 
+Widget installation options are covered in the [Installing Widgets](https://ucfopen.github.io/Materia-Docs/admin/installing-widgets.html) section of the Materia Docs.
 
-## Testing
-
-## Testing Coffeescript with Jest
-
-Add `jest-coffee-preprocessor` and add properties to package.json to define `jest.transform` and `jest.moduleFileExtensions`.  They must be customized to load and transform coffeescript.
-
-## Testing Angular.js
-
-You'll need angular mock, and you'll have to use the inject function to get a reference to modules and dependencies
-
-## Testing React, JSX, ES6
-
+For more information about the widget development process, be sure to visit the [widget developer guide](https://ucfopen.github.io/Materia-Docs/develop/widget-developer-guide.html) for Materia.
