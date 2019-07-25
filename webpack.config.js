@@ -46,7 +46,7 @@ const customCoffeeLoader = {
 	test: /\.coffee$/i,
 	exclude: /node_modules/,
 	loader: require('extract-text-webpack-plugin').extract({
-		use: ['raw-loader', 'ng-annotate-loader', 'coffee-loader']
+		use: ['raw-loader', 'ng-annotate-loader', 'babel-loader', 'coffee-loader']
 	})
 }
 
