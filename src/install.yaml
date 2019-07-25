@@ -16,6 +16,8 @@ files:
   creator: creator.html
   player: player.html
   flash_version: 0
+  player_guide: guides/player.html
+  creator_guide: guides/creator.html
 score:
   is_scorable: Yes
   score_module: TemplateWidget
@@ -29,8 +31,7 @@ meta_data:
     # - Question/Answer
     # - My custom Question
   about: >
-    This is a simple widget for first-time
-    Materia developers to have a basuc starting place.
+    A simple widget implementing various best practices to be used as a starting point for first-time Materia developers.
 
   # The text displayed on the widget catalog page.
   excerpt: >

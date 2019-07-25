@@ -46,7 +46,7 @@ const customCoffeeLoader = {
 	test: /\.coffee$/i,
 	exclude: /node_modules/,
 	loader: require('extract-text-webpack-plugin').extract({
-		use: ['raw-loader', 'ng-annotate-loader', 'coffee-loader']
+		use: ['raw-loader', 'ng-annotate-loader', 'babel-loader', 'coffee-loader']
 	})
 }
 
@@ -129,12 +129,43 @@ const customReactLoader = {
 	test: /scoreScreen.*\.js$/i,
 	exclude: /node_modules/,
 	use: {
-		loader: 'babel-loader',
-		options: {
-			presets: ['env', 'react']
-		}
+		loader: 'babel-loader'
 	}
 }
+
+
+
+
+
+/*
+======= HELPER GUIDES ======
+getLegacyWidgetBuildConfig doesn't have any entries for
+helper guides by default, but does have some rules set up
+to handle them if they are provided
+The default rules will expect these entries to be creating
+files with specific names - 'guides/player.temp.html' for
+the player guide and 'guides/creator.temp.html' for the
+creator guide, specifically
+
+==== CHANGES NEEDED ====
+1. Add an entry for the player and creator guide (if applicable)
+2. If overriding the default rule set, make sure there is a rule
+   to handle markdown files
+
+==== DIFFERENT IN THIS EXAMPLE ====
+Though most widgets will typically have a guide file for both
+the player and the creator, this widget uses the default creator
+and, accordingly, only has a guide for the player
+
+*/
+
+entries['guides/player.temp.html'] = [
+	path.join(__dirname, 'src', '_guides', 'player.md')
+]
+
+entries['guides/creator.temp.html'] = [
+	path.join(__dirname, 'src', '_guides', 'creator.md')
+]
 
 
 
@@ -151,13 +182,22 @@ We need extrafile.txt in the "root" directory
 
 ==== CHANGES NEEDED ====
 1. Append a new file onto the copyList
+2. Helper guides typically make use of images - in this case,
+   we also need to copy the 'src/_guides/assets' directory
 
 */
 
-const customCopy = copy.concat([{
-	from: `${srcPath}extrafile.txt`,
-	to: outputPath
-}])
+const customCopy = copy.concat([
+	{
+		from: `${srcPath}extrafile.txt`,
+		to: outputPath
+	},
+	{
+		from: path.join(__dirname, 'src', '_guides', 'assets'),
+		to: path.join(outputPath, 'guides', 'assets'),
+		toType: 'dir'
+	},
+])
 
 
 
@@ -181,6 +221,7 @@ let customRules = [
 	rules.loadHTMLAndReplaceMateriaScripts,
 	rules.loadAndPrefixCSS,
 	rules.loadAndPrefixSASS,
+	rules.loadAndCompileMarkdown,
 	customReactLoader, // <--- Extra new rule for react
 ]
 
