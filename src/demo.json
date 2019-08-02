@@ -3,36 +3,40 @@
 	"qset": {
 		"version": 1,
 		"data": {
-			"questions": [
+			"items": [
 				{
-					"materiaType": "question",
-					"id": null,
-					"type": "MC",
-					"question": [
+					"items": [
 						{
-							"text": "What's the capital in Florida?"
-						}
-					],
-					"answers": [
-						{
+							"materiaType": "question",
 							"id": null,
-							"text": "Tallahassee",
-							"value": 100
-						},
-						{
-							"id": null,
-							"text": "Atlanta",
-							"value": 0
-						},
-						{
-							"id": null,
-							"text": "Orlando",
-							"value": 0
-						},
-						{
-							"id": null,
-							"text": "Jacksonville",
-							"value": 0
+							"type": "MC",
+							"questions": [
+								{
+									"text": "What's the capital in Florida?"
+								}
+							],
+							"answers": [
+								{
+									"id": null,
+									"text": "Tallahassee",
+									"value": 100
+								},
+								{
+									"id": null,
+									"text": "Atlanta",
+									"value": 0
+								},
+								{
+									"id": null,
+									"text": "Orlando",
+									"value": 0
+								},
+								{
+									"id": null,
+									"text": "Jacksonville",
+									"value": 0
+								}
+							]
 						}
 					]
 				}
