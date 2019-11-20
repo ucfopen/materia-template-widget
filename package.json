@@ -5,7 +5,7 @@
   },
   "dependencies": {
     "@babel/preset-react": "^7.0.0",
-    "angular": "1.6.9",
+    "angular": "1.7.9",
     "angular-mocks": "1.6.9",
     "jest": "^24.8.0",
     "jest-coffee-preprocessor": "^1.0.0",
