@@ -15,6 +15,11 @@ template.controller('PlayerController', ['$scope', function($scope) {
 		// show the first question
 		$scope.question = _qset.questions[0]
 
+		// How to use storage data
+		Materia.Storage.Manager.addTable('table_name', 'column_a', 'column_b') // initialize table
+		Materia.Storage.Manager.insert('table_name', "sample value 1", Math.random()) // store a row
+		Materia.Storage.Manager.insert('table_name', "sample value 2", Math.random())// store another row
+
 		// redraw
 		$scope.$apply();
 	};
