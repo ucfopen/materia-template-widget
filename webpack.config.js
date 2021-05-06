@@ -42,13 +42,13 @@ dependency injection syntax
 1. Replace coffeescript loader
 */
 
-const customCoffeeLoader = {
-	test: /\.coffee$/i,
-	exclude: /node_modules/,
-	loader: require('extract-text-webpack-plugin').extract({
-		use: ['raw-loader', 'ng-annotate-loader', 'babel-loader', 'coffee-loader']
-	})
-}
+// const customCoffeeLoader = {
+// 	test: /\.coffee$/i,
+// 	exclude: /node_modules/,
+// 	loader: require('extract-text-webpack-plugin').extract({
+// 		use: ['raw-loader', 'ng-annotate-loader', 'babel-loader', 'coffee-loader']
+// 	})
+// }
 
 
 
@@ -216,7 +216,7 @@ to build a webpack config.
 */
 let customRules = [
 	customDoNothingToJs, // <--- replaces "rules.loaderDoNothingToJs"
-	customCoffeeLoader, // <--- replaces "rules.loaderCompileCoffee"
+	rules.loaderCompileCoffee,
 	rules.copyImages,
 	rules.loadHTMLAndReplaceMateriaScripts,
 	rules.loadAndPrefixCSS,

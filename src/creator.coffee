@@ -9,9 +9,46 @@ creator = angular.module('creator', [])
 # Note, this less verbose AngularJS module definition requires protection
 # from minification in webpack using a library like ng-annotate-loader
 # Note that player-controller.js is written in a way that doesn't require protection
-creator.controller 'CreatorCtrl', ($scope) ->
+creator.controller 'CreatorCtrl', ['$scope', ($scope) ->
 	materiaCallbacks = {}
-	_qset = ""
+
+	# In this case, we're providing a fixed qset to Materia when the widget is saved. For customizable widgets, the individual question items of the qset
+	# would be assembled programmatically based on what the user enters, but formatted to qset structure specifications
+	_qset = {
+		items: [
+			{
+				materiaType: 'question',
+				id: null,
+				type: 'MC',
+				questions: [{
+					text: "What's the capital in Florida?"
+				}],
+				answers: [
+					{
+						id: null,
+						text: 'Tallahassee',
+						value: 100
+					},
+					{
+						id: null,
+						text: 'Atlanta',
+						value: 0
+					},
+					{
+						id: null,
+						text: 'Orlando',
+						value: 0
+					},
+					{
+						id: null,
+						text: 'Jacksonville',
+						value: 0
+					}
+				],
+				options: {}
+			}
+		]
+	}
 
 	# Callback when a new widget is being created
 	materiaCallbacks.initNewWidget = (widget) =>
@@ -63,3 +100,4 @@ creator.controller 'CreatorCtrl', ($scope) ->
 	# tell materia we're ready and give it a
 	# reference to our callbacks
 	Materia.CreatorCore.start materiaCallbacks
+]
