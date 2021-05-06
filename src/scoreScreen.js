@@ -1,35 +1,52 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ScoreScreen from './scoreScreen-component';
 
-const defaultParams = {
-	title: '',
-	scoreTable: []
-}
+let title = '';
 
-let currentState = Object.assign({}, defaultParams)
+const ScoreScreenApp = props => {
+	return(
+		<div>
+			<div id="title">{props.title}</div>
+			<div>Score Table</div>
+			{ props.scoreTable.map((row, i) =>
+				<div key={i}>
+					<div>Question</div>
+					<div>{row.data[0]}</div>
+					<div>Score</div>
+					<div>{row.score}{row.symbol}</div>
+					<div>Correct Answer</div>
+					<div>{row.data[1]}</div>
+					<div>Given Answer</div>
+					<div>{row.data[2]}</div>
+				</div>
+			)}
+		</div>
+	);
+};
+
+export default ScoreScreenApp;
 
 const updateDisplay = (qset, scoreTable, title) => {
-	let newState = {
-		title:title,
-		scoreTable: scoreTable[0].details[0].table
-	}
-
-	currentState = Object.assign({}, currentState, newState)
-
+	console.log(scoreTable)
 	ReactDOM.render(
-		<ScoreScreen {...currentState} />,
+		<ScoreScreenApp
+			qset={qset}
+			scoreTable={scoreTable}
+			title={title}
+		/>,
 		document.getElementById('root')
-	)
-}
+	);
+};
 
 const materiaCallbacks = {
 	start: (instance, qset, scoreTable, isPreview, qsetVersion) => {
-		updateDisplay(qset, scoreTable, instance.name)
+		title = instance.name;
+		updateDisplay(qset, scoreTable, title);
 	},
 	update: (qset, scoreTable) => {
-		updateDisplay(qset, scoreTable, currentState.title)
+		updateDisplay(qset, scoreTable, title);
 	}
-}
+};
 
-Materia.ScoreCore.start(materiaCallbacks)
+Materia.ScoreCore.start(materiaCallbacks);
+Materia.ScoreCore.hideResultsTable();
