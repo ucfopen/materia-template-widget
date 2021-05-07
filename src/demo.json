@@ -3,12 +3,12 @@
 	"qset": {
 		"version": 1,
 		"data": {
-			"questions": [
+			"items": [
 				{
 					"materiaType": "question",
 					"id": null,
 					"type": "MC",
-					"question": [
+					"questions": [
 						{
 							"text": "What's the capital in Florida?"
 						}

@@ -27,7 +27,6 @@ const ScoreScreenApp = props => {
 export default ScoreScreenApp;
 
 const updateDisplay = (qset, scoreTable, title) => {
-	console.log(scoreTable)
 	ReactDOM.render(
 		<ScoreScreenApp
 			qset={qset}

@@ -38,6 +38,7 @@
 							ng-model="radioModel.selected"
 							ng-value="answer"
 							ng-change="checkAnswers(question, answer)"
+							ng-disabled="displayFinish == true"
 						>
 						<label for="{{ 'answerChoice' + answer.id }}">{{ answer.text }}</label>
 					</li>

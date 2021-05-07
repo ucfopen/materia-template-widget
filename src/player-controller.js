@@ -13,7 +13,7 @@ template.controller('PlayerController', ['$scope', function($scope) {
 		_qset = qset;
 
 		// show the first question
-		$scope.question = _qset.questions[0]
+		$scope.question = _qset.items[0]
 
 		// redraw
 		$scope.$apply();
@@ -21,7 +21,9 @@ template.controller('PlayerController', ['$scope', function($scope) {
 
 	// answer checking function
 	var checkAnswers = function(question, answer) {
-		Materia.Score.submitFinalScoreFromClient(question.id, answer.id, answer.value)
+		
+		Materia.Score.submitQuestionForScoring(question.id, answer.text, answer.id)
+
 		Materia.Engine.alert(answer.value == 100 ? "Correct!" : "Incorrect!", 'Score: ' + answer.value)
 		$scope.displayFinish = true;
 	};

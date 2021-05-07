@@ -13,7 +13,7 @@ describe('PlayerController', function() {
 				end: jest.fn()
 			},
 			Score: {
-				submitFinalScoreFromClient: jest.fn()
+				submitQuestionForScoring: jest.fn()
 			}
 		}
 
@@ -80,16 +80,16 @@ describe('PlayerController', function() {
 	test('checkAnswers sends a score log', () => {
 		var $scope = {}
 		var controller = $controller('PlayerController', { $scope })
-		expect(Materia.Score.submitFinalScoreFromClient).not.toHaveBeenCalled()
+		expect(Materia.Score.submitQuestionForScoring).not.toHaveBeenCalled()
 
-		$scope.checkAnswers({id: 'mock-question-id'}, {id: 'mock-answer-id', value: 100})
-		expect(Materia.Score.submitFinalScoreFromClient).toHaveBeenLastCalledWith('mock-question-id', 'mock-answer-id', 100)
+		$scope.checkAnswers({id: 'mock-question-id'}, {id: 'mock-answer-id', text: 'mock-answer-text'})
+		expect(Materia.Score.submitQuestionForScoring).toHaveBeenLastCalledWith('mock-question-id', 'mock-answer-text', 'mock-answer-id')
 
-		$scope.checkAnswers({id: 'mock-question-id'}, {id: 'mock-answer-id', value: 99})
-		expect(Materia.Score.submitFinalScoreFromClient).toHaveBeenLastCalledWith('mock-question-id', 'mock-answer-id', 99)
+		$scope.checkAnswers({id: 'mock-question-id'}, {id: 'mock-answer-id', text: 'mock-answer-text'})
+		expect(Materia.Score.submitQuestionForScoring).toHaveBeenLastCalledWith('mock-question-id', 'mock-answer-text', 'mock-answer-id')
 
-		$scope.checkAnswers({id: 'mock-question-id'}, {id: 'mock-answer-id', value: 0})
-		expect(Materia.Score.submitFinalScoreFromClient).toHaveBeenLastCalledWith('mock-question-id', 'mock-answer-id', 0)
+		$scope.checkAnswers({id: 'mock-question-id'}, {id: 'mock-answer-id', text: 'mock-answer-text'})
+		expect(Materia.Score.submitQuestionForScoring).toHaveBeenLastCalledWith('mock-question-id', 'mock-answer-text', 'mock-answer-id')
 	});
 
 	test('submitFinal calls end', () => {
@@ -116,7 +116,7 @@ describe('PlayerController', function() {
 		let instance = {name: 'mock-instance-name'}
 		let mockQuestion = { id: 'mock-question-object'}
 		let qset = {
-			questions: [mockQuestion]
+			items: [mockQuestion]
 		}
 
 		// execute callback
