@@ -12,7 +12,6 @@ class Score_Modules_TemplateWidget extends Score_Module
 	{
 		foreach ($this->questions[$log->item_id]->answers as $answer) {
 			if ($log->value == $answer['id']) {
-				trace("OK, RETURNING ".$answer['value']);
 				return $answer['value'];
 			}
 		}

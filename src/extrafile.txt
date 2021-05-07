@@ -1,2 +1,0 @@
-this file is an example of a non-standard file that is
-included in the widget build via the copyList option

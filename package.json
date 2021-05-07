@@ -4,20 +4,7 @@
     "cleanName": "template-widget"
   },
   "dependencies": {
-    "@babel/core":"^7.14.0",
-    "@babel/preset-react": "^7.0.0",
-    "@babel/preset-env": "7.13.8",
-    "babel-loader":"^8.2.2",
-    "babel-jest": "26.6.3",
-    "angular": "1.6.9",
-    "angular-mocks": "1.6.9",
-    "jest": "^26.6.3",
-    "jest-coffee-preprocessor": "^1.0.0",
-    "materia-widget-development-kit": "2.5.1",
-    "ng-annotate-loader": "^0.6.1",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "react-test-renderer": "^16.5.2"
+    "materia-widget-development-kit": "2.5.1"
   },
   "scripts": {
     "start": "webpack-dev-server",
@@ -26,33 +13,8 @@
     "test": "TZ='America/New_York' jest --verbose",
     "test-ci": "TZ='America/New_York' CI=true jest --ci --useStderr --coverage --coverageReporters text-summary cobertura"
   },
-  "jest": {
-    "coverageReporters": [
-      "text",
-      "lcov"
-    ],
-    "verbose": false,
-    "transform": {
-      "^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest",
-      "^.+\\.coffee$": "<rootDir>/node_modules/jest-coffee-preprocessor/index.js"
-    },
-    "moduleFileExtensions": [
-      "coffee",
-      "js"
-    ],
-    "collectCoverageFrom": [
-      "src/**/*.{js,coffee}"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 100,
-        "functions": 100,
-        "lines": 100
-      }
-    }
-  },
   "author": "University of Central Florida, Center for Distributed Learning",
   "description": "Template widget to use as an example.",
   "license": "AGPL-3.0",
-  "version": "1.1.0"
+  "version": "1.0"
 }

@@ -11,32 +11,12 @@
 		<script src="materia.creatorcore.js"></script>
 
 		<!-- YOUR PREREQUISITES -->
-		<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.9/angular.min.js"></script>
+		<!-- include here: external scripts or libraries, like angular, react, etc -->
 
 		<!-- MAIN CREATOR APP -->
 		<script src="creator.js"></script>
 	</head>
 
-	<body ng-app="creator" ng-controller="CreatorCtrl">
-		<header>
-			{{widget.engineName}}
-		</header>
-		<div class="container">
-			<h1>How to create your widget:</h1>
-			<ol>
-				<li>
-					<p>
-						First, give your widget a name:
-					</p>
-					<input type="text" ng-model="widget.title" placeholder="Widget name..." />
-				</li>
-
-				<li>
-					<p>
-						Then, click <b ng-if="!state.isEditingExistingWidget">Publish</b><b ng-if="state.isEditingExistingWidget">Update</b> at the top of the page.
-					</p>
-				</li>
-			</ol>
-		</div>
+	<body>
 	</body>
 </html>

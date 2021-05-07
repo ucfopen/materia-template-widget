@@ -26,138 +26,6 @@ const rules = widgetWebpack.getDefaultRules()
 const entries = widgetWebpack.getDefaultEntries()
 const copy = widgetWebpack.getDefaultCopyList()
 
-/*
-======= WIDGET CREATOR ======
-Normally getLegacyWidgetBuildConfig expects:
-* src/creator.coffee
-* src/creator.html
-* src/creator.scss
-
-==== DIFFERENT IN THIS EXAMPLE ====
-We're using coffeescript, but in our case it's angular
-and we're relying on a loader to protect shorthand
-dependency injection syntax
-
-==== CHANGES NEEDED ====
-1. Replace coffeescript loader
-*/
-
-// const customCoffeeLoader = {
-// 	test: /\.coffee$/i,
-// 	exclude: /node_modules/,
-// 	loader: require('extract-text-webpack-plugin').extract({
-// 		use: ['raw-loader', 'ng-annotate-loader', 'babel-loader', 'coffee-loader']
-// 	})
-// }
-
-
-
-
-/*
-======= WIDGET PLAYER ======
-Normally getLegacyWidgetBuildConfig expects:
-* src/player.coffee
-* src/player.html
-* src/player.scss
-
-==== DIFFERENT IN THIS EXAMPLE ====
-We're NOT using coffeescript, instead we're just
-concatenating 2 plain javascript files.
-
-==== CHANGES NEEDED ====
-1. Overwrite entries for player.js
-2. Alter the default to target just our player files
-
-NOTE: #2 is only needed because we don't want a generic *.js rule to apply to scoreScreen
-*/
-
-// #1. combine 2 plain js files into player.js
-entries['player.js'] = [
-	`${srcPath}player-module.js`,
-	`${srcPath}player-controller.js`
-]
-
-// #2. Redefine ".test" on loaderDoNothingToJs for just our player files
-// Only needed because we don't want a generic *.js rule to apply
-// to the ScoreScreen
-const customDoNothingToJs = rules.loaderDoNothingToJs
-customDoNothingToJs.test = /player-.*\.js$/i
-
-
-
-
-
-/*
-======= SCORE SCREEN ======
-getLegacyWidgetBuildConfig doesn't have rules for scoreScreen.
-
-
-==== DIFFERENT IN THIS EXAMPLE ====
-We'll be using React, JSX, Babel, and PLAIN CSS
-
-We'll add entries for the html, a plain css file and a React
-
-==== CHANGES NEEDED ====
-1. Add an entry for ScoreScreen.js
-2. Add an entry for ScoreScreen.css and html
-3. Add a module loader for react and babel*
-4. Add an externals config to prevent react
-   and react-dom from being compiled (at bottom of file)
-
-NOTE, #3 will be loading .js files - make sure this rule
-doesn't conflict with other loaders if you're not using
-react for all parts of the widget.  In this example, you
-can see how we changed the loaderDoNothingToJss
-to more specifically target the desired files, and
-not affect the rules for react.
-
-*/
-
-// #1 React and ES6 via Babel
-entries['scoreScreen.js'] = [
-	`${srcPath}scoreScreen.js`,
-]
-
-// #2 CSS & HTML
-entries['scoreScreen.css'] = [
-	`${srcPath}scoreScreen.html`,
-	`${srcPath}scoreScreen.css`
-]
-
-// #3 Custom module loader for react
-const customReactLoader = {
-	test: /scoreScreen.*\.js$/i,
-	exclude: /node_modules/,
-	use: {
-		loader: 'babel-loader'
-	}
-}
-
-
-
-
-
-/*
-======= HELPER GUIDES ======
-getLegacyWidgetBuildConfig doesn't have any entries for
-helper guides by default, but does have some rules set up
-to handle them if they are provided
-The default rules will expect these entries to be creating
-files with specific names - 'guides/player.temp.html' for
-the player guide and 'guides/creator.temp.html' for the
-creator guide, specifically
-
-==== CHANGES NEEDED ====
-1. Add an entry for the player and creator guide (if applicable)
-2. If overriding the default rule set, make sure there is a rule
-   to handle markdown files
-
-==== DIFFERENT IN THIS EXAMPLE ====
-Though most widgets will typically have a guide file for both
-the player and the creator, this widget uses the default creator
-and, accordingly, only has a guide for the player
-
-*/
 
 entries['guides/player.temp.html'] = [
 	path.join(__dirname, 'src', '_guides', 'player.md')
@@ -167,31 +35,7 @@ entries['guides/creator.temp.html'] = [
 	path.join(__dirname, 'src', '_guides', 'creator.md')
 ]
 
-
-
-
-
-/*
-======= EXTRA FILES ======
-To add any extra files that aren't in src/assets, they
-need to be added to the copyList
-
-
-==== DIFFERENT IN THIS EXAMPLE ====
-We need extrafile.txt in the "root" directory
-
-==== CHANGES NEEDED ====
-1. Append a new file onto the copyList
-2. Helper guides typically make use of images - in this case,
-   we also need to copy the 'src/_guides/assets' directory
-
-*/
-
 const customCopy = copy.concat([
-	{
-		from: `${srcPath}extrafile.txt`,
-		to: outputPath
-	},
 	{
 		from: path.join(__dirname, 'src', '_guides', 'assets'),
 		to: path.join(outputPath, 'guides', 'assets'),
@@ -199,48 +43,11 @@ const customCopy = copy.concat([
 	},
 ])
 
-
-
-
-
-/*
-======= USE CUSTOM RULES TO BUILD A WEBPACK CONFIG ======
-Now we'll send our customizations into getLegacyWidgetBuildConfig
-to build a webpack config.
-
-==== CHANGES NEEDED ====
-1. Build an array of custom module loader rules
-2. Build options object for getLegacyWidgetBuildConfig
-3. Add externals for React (used on our score screen)
-
-*/
-let customRules = [
-	customDoNothingToJs, // <--- replaces "rules.loaderDoNothingToJs"
-	rules.loaderCompileCoffee,
-	rules.copyImages,
-	rules.loadHTMLAndReplaceMateriaScripts,
-	rules.loadAndPrefixCSS,
-	rules.loadAndPrefixSASS,
-	rules.loadAndCompileMarkdown,
-	customReactLoader, // <--- Extra new rule for react
-]
-
-// options for the build
 let options = {
 	entries: entries,
-	moduleRules: customRules,
 	copyList: customCopy
 }
 
 const ourFinalWebpackConfig = widgetWebpack.getLegacyWidgetBuildConfig(options)
-
-// Score Screen #4 (from further up in this file)
-// after building, modify externals to make sure
-// React and React-Dom are not compiled
-// into our source code for the Score Screen
-ourFinalWebpackConfig.externals = {
-	"react": "React",
-	"react-dom": "ReactDOM"
-}
 
 module.exports = ourFinalWebpackConfig

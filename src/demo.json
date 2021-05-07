@@ -10,33 +10,33 @@
 					"type": "MC",
 					"questions": [
 						{
-							"text": "What's the capital in Florida?"
+							"text": "Some question text"
 						}
 					],
 					"answers": [
 						{
 							"id": null,
-							"text": "Tallahassee",
-							"value": 100
+							"text": "Correct Answer",
+							"value": 100,
+							"options": {
+								"answerOptionOne": false
+							}
 						},
 						{
 							"id": null,
-							"text": "Atlanta",
-							"value": 0
-						},
-						{
-							"id": null,
-							"text": "Orlando",
-							"value": 0
-						},
-						{
-							"id": null,
-							"text": "Jacksonville",
+							"text": "Incorrect Answer",
 							"value": 0
 						}
-					]
+					],
+					"options": {
+						"itemOptionOne": true,
+						"itemOptionTwo": "this is a string"
+					}
 				}
-			]
+			],
+			"options": {
+				"widgetOptionOne": 0
+			}
 		}
 	}
 }

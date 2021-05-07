@@ -21,7 +21,7 @@ files:
 score:
   is_scorable: Yes
   score_module: TemplateWidget
-  score_screen: scoreScreen.html # OPTIONAL
+  #score_screen: scoreScreen.html # OPTIONAL
 meta_data:
   features:
     - Customizable

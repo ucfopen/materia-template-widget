@@ -11,42 +11,11 @@
 		<script src="materia.enginecore.js"></script>
 
 		<!-- YOUR PREREQUISITES -->
-		<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.9/angular.min.js"></script>
+		<!-- include here: external scripts or libraries, like angular, react, etc -->
 
 		<!-- MAIN PLAYER APP -->
 		<script src="player.js"></script>
 	</head>
-
-	<body ng-app="player">
-		<div id="container" ng-controller="PlayerController">
-			<h1 id="logo">Template Widget</h1>
-			<div id="instructions">
-				<h2>Instructions</h2>
-				<p>You can copy and paste these basic widget files into your new widget repo to have an easy place to start building from.</p>
-			</div>
-			<div id="title">Title: {{ title }}</div>
-			<div id="question">
-				Question: {{ question.question[0].text }}
-			</div>
-			<div id="answer">
-				<ul>
-					<li ng-repeat="answer in question.answers track by $index">
-						<input
-							type="radio"
-							name="answer"
-							id="{{ 'answerChoice' + answer.id }}"
-							ng-model="radioModel.selected"
-							ng-value="answer"
-							ng-change="checkAnswers(question, answer)"
-							ng-disabled="displayFinish == true"
-						>
-						<label for="{{ 'answerChoice' + answer.id }}">{{ answer.text }}</label>
-					</li>
-				</ul>
-			</div>
-			<div id="modalContainer" ng-if="displayFinish">
-				<button ng-click="submitFinal()">Finish</button>
-			</div>
-		</div>
+	<body>
 	</body>
 </html>
